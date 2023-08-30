@@ -13,7 +13,6 @@ const passportGoogle = () => {
         passReqToCallback:true,
     },  async (request, accessToken, refreshToken, profile, done) => {
             store("accessToken", {my_token: accessToken})
-            console.log(accessToken)
             return done(null, profile);
         }
     ))

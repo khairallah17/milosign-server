@@ -1,7 +1,7 @@
 const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
 
-const googleAuth = async (req, res) => {
+const getUsersByEmail = async (req, res) => {
 
     if (req.isAuthenticated()) {
         try {
@@ -33,5 +33,9 @@ const googleAuth = async (req, res) => {
         console.log('User not authenticated.');
         res.redirect('/');
       }
+  
+}
 
+module.exports = { 
+    getUsersByEmail
 }

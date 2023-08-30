@@ -1,8 +1,18 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
+const UserInterface = require("../use-cases/User.interface")
 
-class User extends Model {}
+const ImplementedInterfaces = {
+    UserInterface,
+    Model
+}
 
-// ADD RELATION WITH COMPANY ID
+class User extends ImplementedInterfaces {
+
+    async createUser(userData){
+
+    }
+
+}
 
 User.init({
     user_id: {
@@ -23,6 +33,11 @@ User.init({
     },
 
     user_email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    user_password: {
         type: DataTypes.STRING,
         allowNull: false
     },
