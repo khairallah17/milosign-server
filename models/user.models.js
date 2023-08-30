@@ -2,6 +2,8 @@ const { Sequelize, Model, DataTypes } = require("sequelize")
 
 class User extends Model {}
 
+// ADD RELATION WITH COMPANY ID
+
 User.init({
     user_id: {
         type: DataTypes.UUID,
