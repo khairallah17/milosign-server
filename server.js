@@ -2,6 +2,9 @@ const express = require("express")
 const app = express()
 const passport = require('passport');
 const session = require("express-session")
+const passportGoogle = require("./config/passport")
+const store = require("store2")
+const { google } = require('googleapis');
 require("./config/passport")
 require('dotenv').config()
 
@@ -15,36 +18,29 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.get('/' , (req, res) => {
-    res.send("<button><a href='/auth'>Login With Google</a></button>")
-})
+passportGoogle()
 
-app.get("/auth", passport.authenticate("google", {
-    scope: ["email", "profile"]
-}))
+app.get('/', (req, res) => {
+  res.send("<button><a href='/auth'>Login With Google</a></button>");
+});
 
-app.get('/auth/callback', (req, res, next) => {
-    console.log(req.headers); // Add this line
-    passport.authenticate('google', {
-      successRedirect: '/auth/callback/success',
-      failureRedirect: '/auth/callback/failure',
-    })(req, res, next);
+app.get('/auth',
+  passport.authenticate('google', { scope: ['email', 'profile', 'https://www.googleapis.com/auth/admin.directory.user'] })
+);
+
+app.get('/auth/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    // Successful authentication, redirect to user list page
+    res.redirect('/users');
   }
-)
+);
 
-app.get('/auth/callback/success', async (req, res) => {
-    if (!req.user)
-        res.redirect('/auth/callback/failure')
-    try {
-      // console.log(req)
-    } catch (err) {
-      return res.status(500).json({message: err.message})
-    }
-    res.send("Welcome " + req.user.email)
-})
+// User list page
+app.get('/users', async (req, res) => {
+  // Check if the user is authenticated
 
-app.get("/auth/callback/failure", (req, res) => {
-    res.send("you are not authenticated")
-})
+});
+
 
 app.listen(PORT, () => console.log(PORT))
