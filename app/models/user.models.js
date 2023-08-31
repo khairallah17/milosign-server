@@ -1,16 +1,6 @@
 const { Sequelize, Model, DataTypes } = require("sequelize")
-const UserInterface = require("../use-cases/User.interface")
 
-const ImplementedInterfaces = {
-    UserInterface,
-    Model
-}
-
-class User extends ImplementedInterfaces {
-
-    async createUser(userData){
-
-    }
+class User extends Model {
 
 }
 

@@ -30,7 +30,8 @@
     "passport-google-oidc": "^0.1.0",
     "passport-http-bearer": "^1.0.1",
     "sequelize": "^6.32.1",
-    "store2": "^2.14.2"
+    "store2": "^2.14.2",
+    "supertest": "^6.3.3"
   },
   "devDependencies": {
     "jest": "^29.6.4",

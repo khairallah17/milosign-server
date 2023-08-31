@@ -1,13 +1,20 @@
-class UserInterface {
+const { Sequelize } = require("sequelize")
+const User = require("../models/user.models")
 
-    async createUser(userData){}
+const createUserUseCase = async (userData) => {
 
-    async updateUser(dateToUpdate){}
-
-    async deleteUser(userId){}
-
-    async getUserById(userId){}
-
+    const [newUser, created] = User.create({
+        user_company: userData.company,
+        user_name: userData.name,
+        user_email: userData.email,
+        user_password: userData.password,
+    })
+    if (created)
+        return (newUser)
+    else
+        throw new Error("User Not Created")    
 }
 
-module.exports = UserInterface
+module.exports = {
+    createUserUseCase
+}
